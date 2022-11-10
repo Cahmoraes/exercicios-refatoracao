@@ -7,7 +7,7 @@ function statement(invoice, plays) {
   let result = `Statement for ${invoice.customer}\n`
 
   for (let perf of invoice.performances) {
-    let thisAmount = amountFor(perf, playFor(perf))
+    let thisAmount = amountFor(perf)
 
     volumeCredits += Math.max(perf.audience - 30, 0)
 
