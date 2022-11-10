@@ -12,6 +12,7 @@ function statement(invoice, plays) {
     const result = Object.assign({}, aPerformance)
     result.play = playFor(result)
     result.amount = amountFor(result)
+    result.volumeCreditsFor = volumeCreditsFor(result)
     return result
   }
 
@@ -37,6 +38,16 @@ function statement(invoice, plays) {
         break
       default:
         throw new Error(`unknown type: ${playFor(aPerformance).type}`)
+    }
+
+    return result
+  }
+
+  function volumeCreditsFor(aPerformance) {
+    let result = Math.max(aPerformance.audience - 30, 0)
+
+    if ('comedy' === aPerformance.play.type) {
+      result += Math.floor(aPerformance.audience / 5)
     }
 
     return result
@@ -68,18 +79,8 @@ function renderPlainText(data, plays) {
   function totalVolumeCredits() {
     let result = 0
     for (const perf of data.performances) {
-      result = volumeCreditFor(perf)
+      result = perf.volumeCreditsFor
     }
-    return result
-  }
-
-  function volumeCreditFor(aPerformance) {
-    let result = Math.max(aPerformance.audience - 30, 0)
-
-    if ('comedy' === aPerformance.play.type) {
-      result += Math.floor(aPerformance.audience / 5)
-    }
-
     return result
   }
 
