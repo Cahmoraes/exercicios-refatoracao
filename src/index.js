@@ -11,42 +11,12 @@ function statement(invoice, plays) {
   function enrichPerformance(aPerformance) {
     const result = Object.assign({}, aPerformance)
     result.play = playFor(result)
+    result.amount = amountFor(result)
     return result
   }
 
   function playFor(aPerformance) {
     return plays[aPerformance.playID]
-  }
-}
-
-function renderPlainText(data, plays) {
-  let result = `Statement for ${data.customer}\n`
-
-  for (let perf of data.performances) {
-    result += `${perf.play.name}: ${usd(amountFor(perf))} (${
-      perf.audience
-    } seats)\n`
-  }
-
-  result += `Amount owed is ${usd(totalAmount())}\n`
-  result += `You earned ${totalVolumeCredits()} credits\n`
-
-  return result
-
-  function totalAmount() {
-    let result = 0
-    for (let perf of data.performances) {
-      result += amountFor(perf)
-    }
-    return result
-  }
-
-  function totalVolumeCredits() {
-    let result = 0
-    for (let perf of data.performances) {
-      result = volumeCreditFor(perf)
-    }
-    return result
   }
 
   function amountFor(aPerformance) {
@@ -69,6 +39,37 @@ function renderPlainText(data, plays) {
         throw new Error(`unknown type: ${playFor(aPerformance).type}`)
     }
 
+    return result
+  }
+}
+
+function renderPlainText(data, plays) {
+  let result = `Statement for ${data.customer}\n`
+
+  for (const perf of data.performances) {
+    result += `${perf.play.name}: ${usd(perf.amount)} (${
+      perf.audience
+    } seats)\n`
+  }
+
+  result += `Amount owed is ${usd(totalAmount())}\n`
+  result += `You earned ${totalVolumeCredits()} credits\n`
+
+  return result
+
+  function totalAmount() {
+    let result = 0
+    for (const perf of data.performances) {
+      result += perf.amount
+    }
+    return result
+  }
+
+  function totalVolumeCredits() {
+    let result = 0
+    for (const perf of data.performances) {
+      result = volumeCreditFor(perf)
+    }
     return result
   }
 
