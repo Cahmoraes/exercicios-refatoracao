@@ -3,15 +3,11 @@ import invoices from './seeders/invoices.json' assert { type: 'json' }
 
 function statement(invoice, plays) {
   let totalAmount = 0
-  let volumeCredits = 0
   let result = `Statement for ${invoice.customer}\n`
+  let volumeCredits = 0
 
   for (let perf of invoice.performances) {
-    volumeCredits += Math.max(perf.audience - 30, 0)
-
-    if ('comedy' === playFor(perf).type) {
-      volumeCredits += Math.floor(perf.audience / 5)
-    }
+    volumeCredits = volumeCreditFor(perf)
 
     result += `${playFor(perf).name}: ${amountFor(perf) / 100} (${
       perf.audience
@@ -50,6 +46,15 @@ function statement(invoice, plays) {
 
   function playFor(aPerformance) {
     return plays[aPerformance.playID]
+  }
+
+  function volumeCreditFor(perf) {
+    let volumeCredits = 0
+    volumeCredits += Math.max(perf.audience - 30, 0)
+
+    if ('comedy' === playFor(perf).type) {
+      volumeCredits += Math.floor(perf.audience / 5)
+    }
   }
 }
 
