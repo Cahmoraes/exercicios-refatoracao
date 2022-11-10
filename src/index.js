@@ -2,13 +2,16 @@ import plays from './seeders/plays.json' assert { type: 'json' }
 import invoices from './seeders/invoices.json' assert { type: 'json' }
 
 function statement(invoice, plays) {
-  const statementData = {}
-  statementData.customer = invoice.customer
-  statementData.performances = invoices.performances.map(enrichPerformance)
-  statementData.totalAmount = totalAmount(statementData)
-  statementData.totalVolumeCredits = totalVolumeCredits(statementData)
+  return renderPlainText(createStatementData(invoice, plays))
 
-  return renderPlainText(statementData, plays)
+  function createStatementData(invoice, plays) {
+    const statementData = {}
+    statementData.customer = invoice.customer
+    statementData.performances = invoices.performances.map(enrichPerformance)
+    statementData.totalAmount = totalAmount(statementData)
+    statementData.totalVolumeCredits = totalVolumeCredits(statementData)
+    return statementData
+  }
 
   function enrichPerformance(aPerformance) {
     const result = Object.assign({}, aPerformance)
