@@ -7,23 +7,22 @@ function statement(invoice, plays) {
   let result = `Statement for ${invoice.customer}\n`
 
   for (let perf of invoice.performances) {
-    let thisAmount = amountFor(perf)
-
     volumeCredits += Math.max(perf.audience - 30, 0)
 
     if ('comedy' === playFor(perf).type) {
       volumeCredits += Math.floor(perf.audience / 5)
     }
 
-    result += `${playFor(perf).name}: ${thisAmount / 100} (${
+    result += `${playFor(perf).name}: ${amountFor(perf) / 100} (${
       perf.audience
     } seats)\n`
 
-    totalAmount += thisAmount
+    totalAmount += amountFor(perf)
   }
 
   result += `Amount owed is ${totalAmount / 100}\n`
   result += `You earned ${volumeCredits} credits\n`
+
   return result
 
   function amountFor(aPerformance) {
