@@ -1,0 +1,24 @@
+{
+  "name": "refatoracao-javascript",
+  "version": "1.0.0",
+  "description": "Exercícios realizado ao longo do livro Refatoração de Martin Fowler",
+  "main": "./src/index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "npx nodemon --experimental-json-modules ./src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Cahmoraes/exercicios-refatoracao.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Cahmoraes/exercicios-refatoracao/issues"
+  },
+  "homepage": "https://github.com/Cahmoraes/exercicios-refatoracao#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
