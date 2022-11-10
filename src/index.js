@@ -3,6 +3,7 @@ import invoices from './seeders/invoices.json' assert { type: 'json' }
 
 function statement(invoice, plays) {
   const statementData = {}
+  statementData.costumer = invoice.costumer
   return renderPlainText(statementData, invoice, plays)
 }
 
