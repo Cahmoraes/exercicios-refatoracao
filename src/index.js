@@ -26,7 +26,7 @@ function statement(invoice, plays) {
   result += `You earned ${volumeCredits} credits\n`
   return result
 
-  function amountFor(aPerformance, play) {
+  function amountFor(aPerformance) {
     let result = 0
 
     switch (playFor(aPerformance).type) {
