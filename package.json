@@ -5,7 +5,7 @@
   "main": "./src/index.js",
   "type": "module",
   "scripts": {
-    "dev": "npx nodemon --experimental-json-modules ./src/index.js"
+    "dev": "npx nodemon --experimental-json-modules --no-warnings ./src/index.js"
   },
   "repository": {
     "type": "git",
