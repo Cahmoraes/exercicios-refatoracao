@@ -8,13 +8,17 @@ function statement(invoice, plays) {
 
   for (let perf of invoice.performances) {
     const play = playFor(perf)
-    let thisAmount = amountFor(perf, play)
+    let thisAmount = amountFor(perf, playFor(perf))
 
     volumeCredits += Math.max(perf.audience - 30, 0)
 
-    if ('comedy' === play.type) volumeCredits += Math.floor(perf.audience / 5)
+    if ('comedy' === playFor(perf).type) {
+      volumeCredits += Math.floor(perf.audience / 5)
+    }
 
-    result += `${play.name}: ${thisAmount / 100} (${perf.audience} seats)\n`
+    result += `${playFor(perf).name}: ${thisAmount / 100} (${
+      perf.audience
+    } seats)\n`
 
     totalAmount += thisAmount
   }
